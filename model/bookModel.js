@@ -15,6 +15,9 @@ const bookSchema=new mongoose.Schema({
     },
     publishAt:{
         type:String
+    },
+    publication:{
+        type:String
     }
 })
 const Book=mongoose.model('Book',bookSchema)
