@@ -65,16 +65,48 @@ app.get("/book",async (request,response)=>{
    })
 })
  
-
 //single read 
 app.get("/book/:id",async(request,response)=>{
     const id=request.params.id
-    const book=await Book.findById(id)//findById le object return garxa
-    response.status(201).json({
-        message: "single book fetched succesfykky",
-        data :book
-        
+    const book=await Book.findById(id)
+    if(!book){
+        response.status(404).json({
+            message:"nothing found"
+        })
+    }
+    else{
+        response.status(201).json({
+            message:"single book fetched successfully",
+            data: book
+        })
+    }
+
+})
+
+//delete operation
+app.delete("/book/:id",async(request,response)=>{
+    const id=request.params.id
+    await Book.findByIdAndDelete(id)
+    response.status(200).json({
+        message: "books deleted successfully"
     })
+})
+
+//update operation
+app.patch("/book/:id",async(request,response)=>{
+    const id=request.params.id;
+    const {bookName,bookPrice,authorName,isbnNumber,publication,publishAt}=request.body
+  await  Book.findByIdAndUpdate(id,{
+    bookName,
+    bookPrice,
+    authorName,
+    isbnNumber,
+    publication,
+    publishAt
+  })
+  response.status(200).json({
+    message: 'updated successfully'
+  })
 })
 app.listen(3000, () => {
             console.log("backend has started at port number 3000")

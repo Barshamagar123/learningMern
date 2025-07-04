@@ -1,7 +1,8 @@
 const mongoose=require("mongoose")
 const bookSchema=new mongoose.Schema({
     bookName:{
-        type:String
+        type:String,
+        unique: true
     },
     bookPrice:{
         type:Number,
