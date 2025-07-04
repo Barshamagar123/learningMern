@@ -41,6 +41,8 @@ app.post("/story",async(request,response)=>{
         "message":"story has been created"
     })
 })
+
+//create of register
 app.post("/register",async(request,response)=>{
     const {name,age,address,email,password}=request.body
    await Register.create({
@@ -55,7 +57,18 @@ app.post("/register",async(request,response)=>{
     })
 })
 
-//all read
+//display data of register
+
+app.get("/register",async(request,response)=>{
+   const registers= await Register.find()
+    response.status(201).json({
+        message:"registers are fetched successfully",
+        dis: registers
+    })
+})
+
+
+//all read of books
 app.get("/book",async (request,response)=>{
    const books= await Book.find()//find le array return garxa
 
